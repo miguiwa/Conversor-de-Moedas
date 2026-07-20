@@ -239,4 +239,4 @@ moedaDeConverter.addEventListener("change", mudarBandeiraParaConverter)
 moedaParaConverter.addEventListener("change", mudarBandeiraConvertida)
 buttonToConvert.addEventListener("click", converterValor)
 
-mudarBandeiraParaConverter()
+mudarBandeiraParaConverter();
