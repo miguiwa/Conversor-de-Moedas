@@ -6,12 +6,15 @@ const currencyNameToConvert = document.querySelector(".currency-name-to-convert"
 const currencyValueToConvert = document.querySelector(".currency-value-to-convert")
 const currencyValueConverted = document.querySelector(".currency-value")
 
-function conerterDoReal() {
+async function conerterDoReal() {
     if (moedaDeConverter.value == "real") {
         const valor = document.querySelector(".valor")
-        const dolarToday = 5.69
-        const euroToday = 7.67
-        const libraToday = 6.87
+
+        const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(res => res.json())
+
+        const dolarToday = data.USDBRL.high
+        const euroToday = data.EURBRL.high
+        const libraToday = data.BTCBRL.high
 
         if (moedaParaConverter.value == "dolar") {
             currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
@@ -48,14 +51,19 @@ function conerterDoReal() {
         }).format(valor.value)
 
     }
+    
 }
 
-function converterDoDolar() {
+
+async function converterDoDolar() {
     if (moedaDeConverter.value === "dolar") {
         const valor = document.querySelector(".valor")
-        const realToday = 5.69
-        const euroToday = 0.92
-        const libraToday = 0.79
+
+        const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(res => res.json())
+
+        const realToday = data.USDBRL.high
+        const euroToday = data.EURBRL.high
+        const libraToday = data.BTCBRL.high
 
         if (moedaParaConverter.value === "real") {
             currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
@@ -92,12 +100,13 @@ function converterDoDolar() {
     }
 }
 
-function converterDoEuro() {
+async function converterDoEuro() {
     if (moedaDeConverter.value === "euro") {
         const valor = document.querySelector(".valor")
-        const realToday = 7.67
-        const dolarToday = 1.08
-        const libraToday = 1.18
+        const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(res => res.json())
+        const realToday = data.USDBRL.high
+        const dolarToday = data.EURBRL.high
+        const libraToday = data.BTCBRL.high
 
         if (moedaParaConverter.value === "real") {
             currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
@@ -134,12 +143,13 @@ function converterDoEuro() {
     }
 }
 
-function converterDaLibra() {
+async function converterDaLibra() {
     if (moedaDeConverter.value === "libra") {
         const valor = document.querySelector(".valor")
-        const realToday = 6.87
-        const dolarToday = 1.27
-        const euroToday = 0.85
+        const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(res => res.json())
+        const realToday = data.USDBRL.high
+        const dolarToday = data.EURBRL.high
+        const euroToday = data.BTCBRL.high
 
         if (moedaParaConverter.value === "real") {
             currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
@@ -176,11 +186,11 @@ function converterDaLibra() {
     }
 }
 
-function converterValor() {
-    conerterDoReal()
-    converterDoDolar()
-    converterDoEuro()
-    converterDaLibra()
+async function converterValor() {
+    await conerterDoReal()
+    await converterDoDolar()
+    await converterDoEuro()
+    await converterDaLibra()
 }
 
 function mudarBandeiraParaConverter() {
